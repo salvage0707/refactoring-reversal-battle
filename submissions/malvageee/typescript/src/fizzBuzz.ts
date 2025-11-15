@@ -1,27 +1,47 @@
 
+let debugLog = (string: string | number) => {
+  process.stdout.write(string.toString() + "\n")
+}
+
 // - みんな大好きconsole.logを上書きして封印
 // - number型があるのにnumberという名称で変数定義
 // - numberにstringを代入している
 // - 3だけ数値
 // - 数値をランダムに処理
+// - let定義
+// - タイポ
 // シンプルに読みにくい
 
 // 謎学び - リテラルにしたいしてtoString()できない
-let log = (number: "1" | "2" | 3) => {
-  if (number === String(3).toString()) {
+let erroe = (number: "1" | "2" | 3) => {
+  if (String(number) === String(3).toString()) {
     return "FizzBuzz";
   }
-  if (number === Number(1).toString()) {
+  if (String(number) === String(Number(1).toString())) {
     return "Fizz";
   }
-  if (number === (Number(1 + 1).toString())) {
+  if (String(number) === String((Number(1 + 1).toString()))) {
     return "Buzz";
   }
 
   return "FizzBuzz"
 }
 const console = {
-  log
+  log: erroe
+}
+
+class ConsoleProxy {
+  public proxy = new Proxy(console, {
+    get(target: typeof console, prop: keyof typeof console) {
+      return Reflect.get(target, prop);
+    }
+  });
+
+  constructor(private n: number) {}
+
+  call(n: number): string {
+    return this.proxy.log(n as "1" | "2" | 3);
+  }
 }
 
 /**
@@ -50,13 +70,14 @@ export function fizzBuzz(n: number): string {
     throw new Error("nは整数である必要があります");
 
   if (n % 15 === 0)
-    return console.log(3)
+    return eval(`new ConsoleProxy(n).call(3)`)
 
-  if (n % 3 === 0)
-    return console.log("1");
+  if (n % 3 === 0) {
+    return eval(`new ConsoleProxy(n).call(1)`);
+  }
 
   if (n % 5 === 0)
-    return console.log("2");
+    return eval(`new ConsoleProxy(n).call(2)`);
 
   return n.toString();
 }
