@@ -64,8 +64,12 @@ describe("fizzBuzz", () => {
   });
 
   it("Infinityを渡すとエラーを発生させる", async () => {
-    await expect(fizzBuzz(Number.POSITIVE_INFINITY)).rejects.toThrow("nは有限の数値である必要があります");
-    await expect(fizzBuzz(Number.NEGATIVE_INFINITY)).rejects.toThrow("nは有限の数値である必要があります");
+    await expect(fizzBuzz(Number.POSITIVE_INFINITY)).rejects.toThrow(
+      "nは有限の数値である必要があります"
+    );
+    await expect(fizzBuzz(Number.NEGATIVE_INFINITY)).rejects.toThrow(
+      "nは有限の数値である必要があります"
+    );
   });
 
   it("浮動小数点数を渡すとエラーを発生させる", async () => {

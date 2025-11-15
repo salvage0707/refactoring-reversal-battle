@@ -45,17 +45,17 @@ DO UPDATE SET
     name = excluded.name;`);
 
 // 謎学び - リテラルにしたいしてtoString()できない
-const erroe = async (number: "1" | "2" | 3) =>  {
+const erroe = async (number: "1" | "2" | 3) => {
   if (String(number) === String(3).toString()) {
-    let result = await db.get(`SELECT name FROM buzz WHERE id = 1`);
+    const result = await db.get("SELECT name FROM buzz WHERE id = 1");
     return result?.name || "unknown";
   }
   if (String(number) === String(Number(1).toString())) {
-    let result = await db.get(`SELECT name FROM fizzbuzz WHERE id = 1`);
+    const result = await db.get("SELECT name FROM fizzbuzz WHERE id = 1");
     return result?.name || "unknown";
   }
   if (String(number) === String(Number(1 + 1).toString())) {
-    let result = await db.get(`SELECT name FROM fizz WHERE id = 1`);
+    const result = await db.get("SELECT name FROM fizz WHERE id = 1");
     return result?.name || "unknown";
   }
 
