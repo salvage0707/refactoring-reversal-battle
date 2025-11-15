@@ -1,40 +1,30 @@
-
-let debugLog = (string: string | number) => {
-  process.stdout.write(string.toString() + "\n")
-}
-
-// - みんな大好きconsole.logを上書きして封印
-// - number型があるのにnumberという名称で変数定義
-// - numberにstringを代入している
-// - 3だけ数値
-// - 数値をランダムに処理
-// - let定義
-// - タイポ
-// シンプルに読みにくい
+const debugLog = (string: string | number) => {
+  process.stdout.write(`${string.toString()}\n`);
+};
 
 // 謎学び - リテラルにしたいしてtoString()できない
-let erroe = (number: "1" | "2" | 3) => {
+const erroe = (number: "1" | "2" | 3) => {
   if (String(number) === String(3).toString()) {
     return "FizzBuzz";
   }
   if (String(number) === String(Number(1).toString())) {
     return "Fizz";
   }
-  if (String(number) === String((Number(1 + 1).toString()))) {
+  if (String(number) === String(Number(1 + 1).toString())) {
     return "Buzz";
   }
 
-  return "FizzBuzz"
-}
+  return "FizzBuzz";
+};
 const console = {
-  log: erroe
-}
+  log: erroe,
+};
 
 class ConsoleProxy {
   public proxy = new Proxy(console, {
     get(target: typeof console, prop: keyof typeof console) {
       return Reflect.get(target, prop);
-    }
+    },
   });
 
   constructor(private n: number) {}
@@ -57,27 +47,25 @@ class ConsoleProxy {
  * @throws {Error} nが負の数、0、NaN、またはInfinityの場合
  */
 export function fizzBuzz(n: number): string {
-  if (isNaN(n))
-    throw new Error("nはNaNであってはなりません");
+  if (Number.isNaN(n)) throw new Error("nはNaNであってはなりません");
 
-  if (!isFinite(n))
-    throw new Error("nは有限の数値である必要があります");
+  if (!Number.isFinite(n)) throw new Error("nは有限の数値である必要があります");
 
-  if (n <= 0)
-    throw new Error("nは1以上の整数である必要があります");
+  if (n <= 0) throw new Error("nは1以上の整数である必要があります");
 
-  if (!Number.isInteger(n))
-    throw new Error("nは整数である必要があります");
+  if (!Number.isInteger(n)) throw new Error("nは整数である必要があります");
 
-  if (n % 15 === 0)
-    return eval(`new ConsoleProxy(n).call(3)`)
+  let fizzFunc = new Function("n", "return new n(2).call(3)");
+  let buzzFunc = new Function("n", "return new n(1).call(2)");
+  let fizzBuzzFunc = new Function("n", "return new n(3).call(1)");
+
+  if (n % 15 === 0) return fizzFunc(ConsoleProxy);
 
   if (n % 3 === 0) {
-    return eval(`new ConsoleProxy(n).call(1)`);
+    return fizzBuzzFunc(ConsoleProxy);
   }
 
-  if (n % 5 === 0)
-    return eval(`new ConsoleProxy(n).call(2)`);
+  if (n % 5 === 0) return buzzFunc(ConsoleProxy);
 
   return n.toString();
 }

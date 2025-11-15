@@ -1,4 +1,4 @@
-import { describe, it, expect } from "vitest";
+import { describe, expect, it } from "vitest";
 import { palindrome } from "./palindrome";
 
 describe("palindrome", () => {
@@ -66,25 +66,23 @@ describe("palindrome", () => {
 
   it("nullを渡すとエラーを発生させる", () => {
     expect(() => palindrome(null as unknown as string)).toThrow(
-      "strはnullまたはundefinedであってはなりません",
+      "strはnullまたはundefinedであってはなりません"
     );
   });
 
   it("undefinedを渡すとエラーを発生させる", () => {
     expect(() => palindrome(undefined as unknown as string)).toThrow(
-      "strはnullまたはundefinedであってはなりません",
+      "strはnullまたはundefinedであってはなりません"
     );
   });
 
   it("数値を渡すとエラーを発生させる", () => {
-    expect(() => palindrome(12321 as unknown as string)).toThrow(
-      "strは文字列である必要があります",
-    );
+    expect(() => palindrome(12321 as unknown as string)).toThrow("strは文字列である必要があります");
   });
 
   it("配列を渡すとエラーを発生させる", () => {
     expect(() => palindrome(["a", "b", "a"] as unknown as string)).toThrow(
-      "strは文字列である必要があります",
+      "strは文字列である必要があります"
     );
   });
 });

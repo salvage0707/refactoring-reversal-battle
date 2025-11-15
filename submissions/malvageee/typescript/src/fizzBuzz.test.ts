@@ -1,4 +1,4 @@
-import { describe, it, expect } from "vitest";
+import { describe, expect, it } from "vitest";
 import { fizzBuzz } from "./fizzBuzz";
 
 describe("fizzBuzz", () => {
@@ -60,12 +60,12 @@ describe("fizzBuzz", () => {
   });
 
   it("NaNを渡すとエラーを発生させる", () => {
-    expect(() => fizzBuzz(NaN)).toThrow("nはNaNであってはなりません");
+    expect(() => fizzBuzz(Number.NaN)).toThrow("nはNaNであってはなりません");
   });
 
   it("Infinityを渡すとエラーを発生させる", () => {
-    expect(() => fizzBuzz(Infinity)).toThrow("nは有限の数値である必要があります");
-    expect(() => fizzBuzz(-Infinity)).toThrow("nは有限の数値である必要があります");
+    expect(() => fizzBuzz(Number.POSITIVE_INFINITY)).toThrow("nは有限の数値である必要があります");
+    expect(() => fizzBuzz(Number.NEGATIVE_INFINITY)).toThrow("nは有限の数値である必要があります");
   });
 
   it("浮動小数点数を渡すとエラーを発生させる", () => {
