@@ -1,0 +1,18 @@
+version: "3.8"
+
+services:
+  typescript:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/app
+      - node-modules:/app/node_modules
+    working_dir: /app
+    stdin_open: true
+    tty: true
+    environment:
+      - NODE_ENV=development
+
+volumes:
+  node-modules:
