@@ -1,0 +1,19 @@
+{
+  "name": "refactoring-reversal-battle-typescript",
+  "version": "1.0.0",
+  "description": "逆リファクタリングバトル - TypeScript FizzBuzzコンテスト",
+  "type": "module",
+  "scripts": {
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "format": "biome format --write .",
+    "lint": "biome lint .",
+    "check": "biome check --write ."
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^1.9.4",
+    "@types/node": "^20.14.12",
+    "typescript": "^5.5.4",
+    "vitest": "^1.6.0"
+  }
+}
